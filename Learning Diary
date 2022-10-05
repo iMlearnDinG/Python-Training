@@ -1,0 +1,63 @@
+learning python dont tease me or ill tell mum
+
+*************5/10/22********************
+Was given a task to display some raw data:
+Name
+Age
+Status(previous visitation) 
+
+1st Iteration 
+
+name = 'John Smith'
+age = '20 year old'
+status = 'New Patient'
+print(name, age, status)
+
+Final Iteration
+
+while True:
+    first_name = input("What is your first name? ")
+    last_name = input("What is your last name? ")
+    age = input("What is your age? ")
+    while True:
+        status = input("Have you been here before?")
+        if status.lower() == "yes":
+            print("Thank you have a seat")
+            exit()
+        elif status.lower() == "no":
+            print("Please fill out New Patient Form")
+            break
+        else:
+            print("Yes or No answer only")
+
+    date_of_birth = input("What is your Date of Birth? (DD/MM/YYYY): ")
+    address = input("What is your current residential address?: ")
+
+    print("***Are these details correct?***")
+    print("Name: ", first_name, last_name)
+    print("Age: ", age)
+    print("Date of Birth: ", date_of_birth)
+    print("Address: ", address)
+    while True:
+        answer = input("Yes/No?: ")
+        if answer.lower() == "no":
+            break
+        elif answer.lower() == "yes":
+            print("Thank you. A doctor will be with you shortly.")
+            exit()
+        else:
+            print("Yes or No answers only.")
+        continue
+        
+Learning through taking a simple task and expanding on its capibilities seems to be a working method of study for me at the moment.
+
+***********6/10/2022*************
+I have tasked myself today with including a conversion with some math into my previous code.
+
+Goal: To determine the users age by their DOB input - current date
+IF user age is <50 continue to next step
+IF user age 50> ask for pension card number
+
+Potentially start to look at importing from .csv.
+Create an automation task of filling out 20 forms with pre-entered user details in excel
+impliment counter to track 20 > 0 and disengage once complete.
