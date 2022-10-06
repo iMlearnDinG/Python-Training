@@ -1,18 +1,19 @@
 while True:
     first_name = input("What is your first name? ")
     last_name = input("What is your last name? ")
-    date_of_birth = int((input("What is your D.O.B? DDMMYYY? ")))
+    dob_year = int(input("What year were you born? "))
+    dob_month = int(input("What month were you born? "))
+    dob_day = int(input("What day were you born? "))
 
-    from datetime import date
-    def age():
-        today = date.today()
-        age = today.year - date_of_birth
-        return age
+    from datetime import datetime
+    birth = (dob_year, dob_month, dob_day)
+    current = (datetime.year, datetime.month, datetime.day)
+    year_answer = current - birth
 
     while True:
         status = input("Have you been here before?")
         if status.lower() == "yes":
-            print("Thank you have a seat")
+            print("Thank you. A doctor will be with you shortly.")
             exit()
         elif status.lower() == "no":
             print("Please fill out New Patient Form")
@@ -24,7 +25,7 @@ while True:
 
     print("***Are these details correct?***")
     print("Name: ", first_name, last_name)
-    print("Age: ", age)
+    print("Age: ", year_answer)
     print("Address: ", address)
     while True:
         answer = input("Yes/No?: ")
@@ -36,3 +37,9 @@ while True:
         else:
             print("Yes or No answers only.")
         continue
+
+
+
+#########################
+
+trying to makes sure all input counts are intergers to interact with datetime properly but it doesn't like the minus symbol for some reason.
