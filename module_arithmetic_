@@ -1,0 +1,38 @@
+while True:
+    first_name = input("What is your first name? ")
+    last_name = input("What is your last name? ")
+    date_of_birth = int((input("What is your D.O.B? DDMMYYY? ")))
+
+    from datetime import date
+    def age():
+        today = date.today()
+        age = today.year - date_of_birth
+        return age
+
+    while True:
+        status = input("Have you been here before?")
+        if status.lower() == "yes":
+            print("Thank you have a seat")
+            exit()
+        elif status.lower() == "no":
+            print("Please fill out New Patient Form")
+            break
+        else:
+            print("Yes or No answer only")
+
+    address = input("What is your current residential address?: ")
+
+    print("***Are these details correct?***")
+    print("Name: ", first_name, last_name)
+    print("Age: ", age)
+    print("Address: ", address)
+    while True:
+        answer = input("Yes/No?: ")
+        if answer.lower() == "no":
+            break
+        elif answer.lower() == "yes":
+            print("Thank you. A doctor will be with you shortly.")
+            exit()
+        else:
+            print("Yes or No answers only.")
+        continue
