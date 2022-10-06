@@ -85,3 +85,10 @@ So I am currently stuck on how to create an object that can be referenced in a m
     print("Age: ", age, "|", "Year Born: ", birthdate)
 #I try to address the object in this print parenthesis but it returns the following error: <function pencode at 0x00000224E2556160>
     print("Address: ", address, pencode)
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+************7/10/2022***********
+A new day! 
+
+I will try to learn about how objects work at their fundimental level today so I can have more of a grasp on how to impliment them more efficently. 
