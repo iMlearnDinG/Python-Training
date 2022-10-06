@@ -1,15 +1,24 @@
+# Modules
+from datetime import date
+
+#Code Start
+#Input 1 / While Loop 1
 while True:
     first_name = input("What is your first name? ")
     last_name = input("What is your last name? ")
-    dob_year = int(input("What year were you born? "))
-    dob_month = int(input("What month were you born? "))
-    dob_day = int(input("What day were you born? "))
+    birthdate = int(input("What year were you born?"))
+    birthdate_date = date(birthdate, 1, 1)
+    age = int((date.today() - birthdate_date).days/365.335)
 
-    from datetime import datetime
-    birth = (dob_year, dob_month, dob_day)
-    current = (datetime.year, datetime.month, datetime.day)
-    year_answer = current - birth
+    while True:
+        if int(age) > 50:
+            pcard = input("Do you have a pension card? ")
+            if pcard.lower() == "yes": pcardno = int(input("Please enter your Pension Card Number"))
+            break
+        if int(age) < 50:
+            break
 
+#Input 2 / While Loop 2
     while True:
         status = input("Have you been here before?")
         if status.lower() == "yes":
@@ -21,12 +30,20 @@ while True:
         else:
             print("Yes or No answer only")
 
+#Input 3 / While Loop 3
     address = input("What is your current residential address?: ")
+
+    def pencode(pcode):
+        if int(age) > 50:
+            print("|", "Pension Card No: ", int(pcardno))
+            return answer
 
     print("***Are these details correct?***")
     print("Name: ", first_name, last_name)
-    print("Age: ", year_answer)
-    print("Address: ", address)
+    print("Age: ", age, "|", "Year Born: ", birthdate)
+    print("Address: ", address, pencode)
+
+
     while True:
         answer = input("Yes/No?: ")
         if answer.lower() == "no":
@@ -37,9 +54,3 @@ while True:
         else:
             print("Yes or No answers only.")
         continue
-
-
-
-#########################
-
-trying to makes sure all input counts are intergers to interact with datetime properly but it doesn't like the minus symbol for some reason.
