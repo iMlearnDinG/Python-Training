@@ -1,4 +1,6 @@
-learning python dont tease me or ill tell mum
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+learning python dont tease me lol
 
 *************5/10/22********************
 Was given a task to display some raw data:
@@ -51,13 +53,35 @@ while True:
         
 Learning through taking a simple task and expanding on its capibilities seems to be a working method of study for me at the moment.
 
+Things learned:
+If/elfif/else Statements
+While Loops
+Int/Str conversions
+string functions
+Input/retreival of stored data
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 ***********6/10/2022*************
 I have tasked myself today with including a conversion with some math into my previous code.
 
 Goal: To determine the users age by their DOB input - current date ✔
 IF user age is <50 continue to next step ✔
 IF user age 50> ask for pension card number ✔
+Make an object and call its data.
 
-Potentially start to look at importing from .csv.
-Create an automation task of filling out 20 forms with pre-entered user details in excel
-impliment counter to track 20 > 0 and disengage once complete.
+So I am currently stuck on how to create an object that can be referenced in a method.
+
+#define pencode as object and (pcode) as string attached.
+    def pencode(pcode):
+#If age is over 50 print pension card number
+        if int(age) > 50:
+            print("|", "Pension Card No: ", int(pcardno))
+            return
+
+    print("***Are these details correct?***")
+    print("Name: ", first_name, last_name)
+    print("Age: ", age, "|", "Year Born: ", birthdate)
+#I try to address the object in this print parenthesis but it returns the following error: <function pencode at 0x00000224E2556160>
+    print("Address: ", address, pencode)
