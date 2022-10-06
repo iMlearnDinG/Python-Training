@@ -54,9 +54,9 @@ Learning through taking a simple task and expanding on its capibilities seems to
 ***********6/10/2022*************
 I have tasked myself today with including a conversion with some math into my previous code.
 
-Goal: To determine the users age by their DOB input - current date✔
-IF user age is <50 continue to next step
-IF user age 50> ask for pension card number
+Goal: To determine the users age by their DOB input - current date ✔
+IF user age is <50 continue to next step ✔
+IF user age 50> ask for pension card number ✔
 
 Potentially start to look at importing from .csv.
 Create an automation task of filling out 20 forms with pre-entered user details in excel
