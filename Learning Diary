@@ -113,6 +113,6 @@ def pencode49(age):
         print("Address: ", address)
     return "Are these details correct?"
     
- I use these to call information for an if statement weather a user is over the age of 50yrs or not.
+ I use these to call information for an if statement whether a user is over the age of 50yrs or not.
  
  GOODNIGHT!
