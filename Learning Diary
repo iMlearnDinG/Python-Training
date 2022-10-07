@@ -95,7 +95,7 @@ I will try to learn about how objects work at their fundimental level today so I
 
 **UPDATE** 
 
-6hrs in and functional objects are now under control!
+Make an object and call its data. ✔
 
 # Functions
 def pencode51(pcardno, age):
@@ -116,3 +116,4 @@ def pencode49(age):
  I use these to call information for an if statement whether a user is over the age of 50yrs or not.
  
  GOODNIGHT!
+
