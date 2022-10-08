@@ -174,3 +174,19 @@ in this block of code
          
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+************9/10/2022************
+
+Turn's out you dont need to define the pension card number as strictly int().
+
+pcard = int(input("Do you have a pension card? [Y/N] "))
+is now
+pcard = input("Do you have a pension card? [Y/N] ")
+
+  NEW MODULE DISCOVERED!!!!!
+             ↓
+      import re (RegEx)  
+A module to help search strings.
+             ↓
+Re-structured input to only accept the following paramaters:
+- Numeric Characters Between 1 - 9
+- Maxiumum of 9 Numeric Characters
