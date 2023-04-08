@@ -1,0 +1,58 @@
+import pyautogui
+import cv2
+import numpy as np
+
+# Define the screenshot size
+size = (70, 70)
+
+# Set the threshold for movement detection in pixels
+threshold = 700
+
+# Monitor the segmented image for changes
+while True:
+    # Get the current mouse position
+    x, y = pyautogui.position()
+
+    # Take a screenshot at the mouse position
+    screenshot = pyautogui.screenshot(region=(x - size[0]//2, y - size[1]//2, size[0], size[1]))
+
+    # Convert the screenshot to grayscale
+    gray = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2GRAY)
+
+    # Fine-tune the dark and bright pixels using adaptive thresholding
+    thresh = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 11, 2)
+
+    # Find the contours in the thresholded image
+    contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    # If there are any contours, find the largest one
+    if len(contours) > 0:
+        largest_contour = max(contours, key=cv2.contourArea)
+
+        # Create a mask for the largest contour
+        mask = np.zeros_like(thresh)
+        cv2.drawContours(mask, [largest_contour], 1-3, 255, 1)
+
+        # Show the original screenshot and the thresholded image
+        cv2.imshow('Original', cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2BGR))
+        cv2.imshow('Thresholded', thresh)
+
+        # If this is not the first frame, compare the new mask to the previous mask
+        if 'prev_mask' in locals():
+            # Calculate the absolute difference between the masks
+            diff = cv2.absdiff(mask, prev_mask)
+
+            # Count the number of white pixels in the difference image
+            count = np.count_nonzero(diff)
+
+            # If enough pixels have moved, print "movement detected"
+            if count >= threshold:
+                print('Movement detected')
+
+        # Store the current mask for comparison in the next frame
+        prev_mask = mask
+
+        # Update the display and wait for a key press
+        key = cv2.waitKey(1)
+        if key == ord('q'):
+            break
