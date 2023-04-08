@@ -1,0 +1,133 @@
+import random
+import time
+import matplotlib.pyplot as plt
+
+# Define card values and suit values
+card_values = {'1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, '11': 11, '12': 12, '13': 13, }
+suit_values = {'Hearts': 2, 'Diamonds': 3, 'Clubs': 4, 'Spades': 1}
+
+# Define functions for comparing cards
+def rank_proximity(player1_card, player2_card):
+    rank1 = int(player1_card.split()[0])
+    rank2 = int(player2_card.split()[0])
+    diff = abs(rank1 - rank2)
+    return min(diff, 13 - diff)
+
+def suit_proximity(player_card, dealer_card):
+    player_suit = player_card.split()[2]
+    dealer_suit = dealer_card.split()[2]
+    if player_suit == dealer_suit:
+        return 0
+    else:
+        return abs(suit_values[player_suit] - suit_values[dealer_suit])
+
+def card_distance(player1_card, player2_card, dealer_card):
+    rank_diff1 = rank_proximity(player1_card, dealer_card)
+    rank_diff2 = rank_proximity(player2_card, dealer_card)
+    suit_diff1 = suit_proximity(player1_card, dealer_card)
+    suit_diff2 = suit_proximity(player2_card, dealer_card)
+    player1_distance = rank_diff1 + suit_diff1
+    player2_distance = rank_diff2 + suit_diff2
+    return player1_distance, player2_distance
+
+# Define function for rolling dice
+def roll_dice():
+    return random.randint(1, 6)
+
+# Set the number of loops to run
+num_loops = 1000
+total_scores = {'player1': 0, 'player2': 0, 'tie': 0}
+
+# Initialize lists to store cumulative wins
+cumulative_wins_player1 = []
+cumulative_wins_player2 = []
+
+# Run the game for the specified number of loops
+for loop in range(num_loops):
+
+    # Set a time-based seed for the random algorithm
+    random.seed(time.time())
+
+    # Shuffle deck and deal cards
+    deck = [(f"{k} of {s}", card_values[k], suit_values[s]) for k in card_values for s in suit_values]
+    random.shuffle(deck)
+    player1_cards = [deck.pop() for _ in range(5)]
+    player2_cards = [deck.pop() for _ in range(5)]
+    dealer_cards = [deck.pop() for _ in range(5)]
+
+    # Compare cards and determine winner for each column
+    score_round = {'player1': 0, 'player2': 0, 'tie': 0}
+    messages = []
+    for col in range(5):
+        tie = False  # Initialize the tie variable
+        player1_card = player1_cards[col][0]
+        player2_card = player2_cards[col][0]
+        dealer_card = dealer_cards[col][0]
+        player1_distance, player2_distance = card_distance(player1_card, player2_card, dealer_card)
+        if player1_distance < player2_distance:
+            messages.append(f"Player 1 wins on column {col + 1}")
+            score_round['player1'] += 1
+        elif player1_distance > player2_distance:
+            messages.append(f"Player 2 wins on column {col + 1}")
+            score_round['player2'] += 1
+        else:
+            # Compare player 1 bet area with dealer
+            player1_suit = player1_card.split()[2]
+            dealer_suit = dealer_card.split()[2]
+            player2_suit = player2_card.split()[2]
+            suit_distance1 = suit_proximity(player1_card, dealer_card)
+            suit_distance2 = suit_proximity(player2_card, dealer_card)
+            if suit_distance1 < suit_distance2:
+                messages.append(f"Player 1 wins on column {col + 1}")
+                score_round['player1'] += 1
+            elif suit_distance1 > suit_distance2:
+                messages.append(f"Player 2 wins on column {col + 1}")
+                score_round['player2'] += 1
+            else:
+                messages.append(f"Rolling dice to break tie in column {col + 1}")
+                player1_dice = roll_dice()
+                player2_dice = roll_dice()
+                if player1_dice > player2_dice:
+                    messages.append(
+                        f"Player 1 wins on column {col + 1} with dice roll {player1_dice} vs {player2_dice}")
+                    score_round['player1'] += 1
+                elif player1_dice < player2_dice:
+                    messages.append(
+                        f"Player 2 wins on column {col + 1} with dice roll {player2_dice} vs {player1_dice}")
+                    score_round['player2'] += 1
+                else:
+                    messages.append(f"Column {col + 1} is a tie even after rolling dice")
+                    tie = True
+
+        # Check for ties and update the score_round dictionary
+        if tie:
+            score_round['tie'] += 1
+
+    # Print the results and overall score
+    for i, message in enumerate(messages):
+        total_scores['player1'] += score_round['player1']
+        total_scores['player2'] += score_round['player2']
+        total_scores['tie'] += score_round['tie']
+
+    # Update cumulative wins lists
+    cumulative_wins_player1.append(total_scores['player1'])
+    cumulative_wins_player2.append(total_scores['player2'])
+
+# Plot the line graph
+x_axis = range(1, num_loops + 1)
+plt.plot(x_axis, cumulative_wins_player1, color='blue', label='Player 1 Wins')
+plt.plot(x_axis, cumulative_wins_player2, color='green', label='Player 2 Wins')
+plt.legend()
+plt.title('(Zero Variable)', fontsize=10, x=0.483)
+plt.suptitle('Cumulative Wins')
+plt.xlabel('Round', fontsize=16)
+plt.ylabel('Wins', fontsize=16)
+plt.show()
+
+total_score_sum = total_scores['player1'] + total_scores['player2'] + total_scores['tie']
+player1_percentage = (total_scores['player1'] / total_score_sum) * 100
+player2_percentage = (total_scores['player2'] / total_score_sum) * 100
+tie_percentage = (total_scores['tie'] / total_score_sum) * 100
+
+# Print the total scores and percentage ratio for all loops
+print(f"\nTotal scores: Player 1 - {total_scores['player1']} ({player1_percentage:.2f}%), Player 2 - {total_scores['player2']} ({player2_percentage:.2f}%), Ties - {total_scores['tie']} ({tie_percentage:.2f}%)")
